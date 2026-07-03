@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento de Investimento – Potencializa</title>
+<style>
+:root{--dark:#0C3228;--mid:#124236;--green:#2EAE74;--light:#5DCAA5;--bg:#F4F4F2;--surface2:#fff;--surface3:#F0F0EE;--border2:rgba(0,0,0,0.08);--text2:#1a1a1a;--text3:#555;--text4:#999;--r:14px;--rs:8px;
+--redbg:#FCEBEB;--redtx:#A32D2D;--amberbg:#FAEEDA;--ambertx:#854F0B;--greenbg:#EAF3DE;--greentx:#3B6D11}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text2);min-height:100vh;padding:2rem 1rem}
+.page{max-width:1040px;margin:0 auto}
+.brand-bar{background:var(--mid);border-radius:var(--r);padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px}
+.brand-left{color:#fff;font-weight:700;font-size:15px;letter-spacing:-0.02em}
+.client-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+select,input,button{font-family:'Outfit',sans-serif;font-size:13px}
+select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:7px;color:#fff;padding:7px 10px;outline:none;min-width:160px}
+select option{color:#000}
+.btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:7px;color:#fff;padding:7px 12px;cursor:pointer;transition:background .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.btn:hover{background:rgba(255,255,255,.2)}
+.section-head{display:flex;align-items:flex-start;gap:12px;margin:1.75rem 0 1rem}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--dark);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-title{font-size:16px;font-weight:700;color:var(--text2)}
+.step-desc{font-size:12px;color:var(--text3);margin-top:1px}
+.card{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);padding:1.25rem}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:6px 4px;font-weight:600;color:var(--text4);font-size:10px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border2)}
+td{padding:4px;border-bottom:1px solid var(--border2)}
+td input{width:100%;height:32px;border:1px solid var(--border2);border-radius:6px;padding:0 8px;outline:none;font-size:13px}
+td input:focus{border-color:var(--green)}
+td.num{text-align:right;font-weight:500}
+.del-btn{border:none;background:none;cursor:pointer;color:var(--text4);padding:4px;font-size:15px;line-height:1}
+.del-btn:hover{color:var(--redtx)}
+.add-row{margin-top:10px;background:none;border:1px dashed var(--border2);border-radius:var(--rs);padding:8px 14px;cursor:pointer;color:var(--text3);font-size:12px;width:100%;text-align:center}
+.add-row:hover{border-color:var(--green);color:var(--green)}
+.mg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1.1rem}
+.mc{background:var(--surface3);border-radius:var(--rs);padding:14px}
+.mc-lbl{font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;font-weight:500}
+.mc-val{font-size:22px;font-weight:600}
+.scen3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.scard{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);padding:1.1rem}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:14px}
+.badge.p{background:var(--redbg);color:var(--redtx)}
+.badge.r{background:var(--amberbg);color:var(--ambertx)}
+.badge.o{background:var(--greenbg);color:var(--greentx)}
+.pctval{font-size:14px;font-weight:800}
+.mrow{display:flex;justify-content:space-between;font-size:12px;color:var(--text3);padding:6px 0;border-bottom:1px solid var(--border2)}
+.mrow:last-of-type{border-bottom:none}
+.mrow span:last-child{color:var(--text2);font-weight:600}
+.bigbox{background:var(--dark);border-radius:var(--rs);padding:16px;text-align:center;margin-top:12px}
+.biglbl{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em}
+.bigval{font-size:32px;font-weight:700;color:var(--green);margin:3px 0}
+.bigsub{font-size:10px;color:rgba(255,255,255,.4)}
+.inputs2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:1.25rem}
+.field label{font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;font-weight:500}
+.field .inpwrap{display:flex;align-items:center;border:1px solid var(--border2);border-radius:var(--rs);background:var(--surface2)}
+.field .prefix{padding:0 0 0 12px;color:var(--text4);font-size:14px;font-weight:600}
+.field input{border:none;height:44px;padding:0 12px;font-size:16px;font-weight:600;outline:none;background:transparent;width:100%}
+.resultbar{display:grid;grid-template-columns:1fr 1fr;border-radius:var(--rs);overflow:hidden;margin-top:10px}
+.resultbar .rb-cell{padding:12px 14px;background:var(--green)}
+.resultbar .rb-cell:first-child{border-right:1px solid rgba(255,255,255,.18)}
+.rb-lbl{font-size:9px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.rb-val{font-size:19px;font-weight:700;color:#fff;margin-top:3px}
+.save-status{font-size:11px;color:var(--green);margin-top:1rem;display:flex;align-items:center;gap:5px;min-height:16px}
+@media(max-width:768px){.mg2,.scen3,.inputs2{grid-template-columns:1fr}table{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="brand-bar">
+    <div class="brand-left">Potencializa</div>
+    <div class="client-bar">
+      <select id="clientSel"></select>
+      <button class="btn" id="newClientBtn">+ Novo cliente</button>
+      <button class="btn" id="delClientBtn">Excluir</button>
+      <button class="btn" id="exportBtn">Exportar .json</button>
+      <label class="btn" style="cursor:pointer;">Importar .json<input type="file" id="importFile" accept=".json" style="display:none"></label>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div class="step-num">1</div>
+    <div><div class="step-title">Palavras-chave e orçamento</div><div class="step-desc">Cole os valores mín/máx do Planejador de Palavras-chave do Google</div></div>
+  </div>
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:32%">Palavra-chave</th>
+          <th>CPC mín (R$)</th>
+          <th>CPC máx (R$)</th>
+          <th>Cliques/dia</th>
+          <th>CPC médio</th>
+          <th>Orç. diário</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="kwBody"></tbody>
+    </table>
+    <button class="add-row" id="addRowBtn">+ Adicionar palavra-chave</button>
+    <div class="mg2">
+      <div class="mc"><div class="mc-lbl">Investimento mensal total</div><div class="mc-val" id="totMensal">R$ 0</div></div>
+      <div class="mc"><div class="mc-lbl">Cliques/mês estimados</div><div class="mc-val" id="totCliques">0</div></div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div class="step-num">2</div>
+    <div><div class="step-title">Projeção de leads</div><div class="step-desc">Três cenários de geração de leads a partir do orçamento acima</div></div>
+  </div>
+  <div class="scen3">
+    <div class="scard">
+      <div class="badge p">Pessimista<span class="pctval">5%</span></div>
+      <div class="mrow"><span>CPC médio</span><span id="p-cpc">R$ 0</span></div>
+      <div class="mrow"><span>Cliques/mês</span><span id="p-cli">0</span></div>
+      <div class="mrow"><span>Taxa de conversão</span><span>5%</span></div>
+      <div class="bigbox"><div class="biglbl">Leads gerados/mês</div><div class="bigval" id="p-leads">0</div><div class="bigsub">leads</div></div>
+      <div class="resultbar"><div class="rb-cell"><div class="rb-lbl">Possíveis clientes</div><div class="rb-val" id="p-fcli">0</div></div><div class="rb-cell"><div class="rb-lbl">Faturamento</div><div class="rb-val" id="p-fat">R$ 0</div></div></div>
+    </div>
+    <div class="scard">
+      <div class="badge r">Realista<span class="pctval">10%</span></div>
+      <div class="mrow"><span>CPC médio</span><span id="r-cpc">R$ 0</span></div>
+      <div class="mrow"><span>Cliques/mês</span><span id="r-cli">0</span></div>
+      <div class="mrow"><span>Taxa de conversão</span><span>10%</span></div>
+      <div class="bigbox"><div class="biglbl">Leads gerados/mês</div><div class="bigval" id="r-leads">0</div><div class="bigsub">leads</div></div>
+      <div class="resultbar"><div class="rb-cell"><div class="rb-lbl">Possíveis clientes</div><div class="rb-val" id="r-fcli">0</div></div><div class="rb-cell"><div class="rb-lbl">Faturamento</div><div class="rb-val" id="r-fat">R$ 0</div></div></div>
+    </div>
+    <div class="scard">
+      <div class="badge o">Otimista<span class="pctval">15%</span></div>
+      <div class="mrow"><span>CPC médio</span><span id="o-cpc">R$ 0</span></div>
+      <div class="mrow"><span>Cliques/mês</span><span id="o-cli">0</span></div>
+      <div class="mrow"><span>Taxa de conversão</span><span>15%</span></div>
+      <div class="bigbox"><div class="biglbl">Leads gerados/mês</div><div class="bigval" id="o-leads">0</div><div class="bigsub">leads</div></div>
+      <div class="resultbar"><div class="rb-cell"><div class="rb-lbl">Possíveis clientes</div><div class="rb-val" id="o-fcli">0</div></div><div class="rb-cell"><div class="rb-lbl">Faturamento</div><div class="rb-val" id="o-fat">R$ 0</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div class="step-num">3</div>
+    <div><div class="step-title">Estimativa de faturamento</div><div class="step-desc">Informe sua taxa de fechamento e ticket médio para calcular clientes e receita</div></div>
+  </div>
+  <div class="inputs2">
+    <div class="field"><label>Minha taxa de fechamento</label><div class="inpwrap"><span class="prefix">%</span><input type="number" id="taxaFech" value="20" min="0" max="100" placeholder="ex: 10"></div></div>
+    <div class="field"><label>Ticket médio</label><div class="inpwrap"><span class="prefix">R$</span><input type="number" id="ticket" value="300" min="0" placeholder="ex: 500"></div></div>
+  </div>
+
+  <div class="save-status" id="saveStatus"></div>
+
+</div>
+
+<script>
+var LIST_KEY = "planejamento_clientes_lista";
+var PREFIX = "planejamento_cliente:";
+
+function loadClientList(){
+  try{ var raw = localStorage.getItem(LIST_KEY); return raw ? JSON.parse(raw) : []; }catch(e){ return []; }
+}
+function saveClientList(list){ localStorage.setItem(LIST_KEY, JSON.stringify(list)); }
+function loadClientData(name){
+  try{ var raw = localStorage.getItem(PREFIX + name); return raw ? JSON.parse(raw) : null; }catch(e){ return null; }
+}
+function saveClientData(name, data){
+  localStorage.setItem(PREFIX + name, JSON.stringify(data));
+  var status = document.getElementById("saveStatus");
+  status.textContent = "✓ Salvo automaticamente";
+  clearTimeout(window._st);
+  window._st = setTimeout(function(){ status.textContent = ""; }, 1500);
+}
+
+var clientList = loadClientList();
+var current = clientList[0] || null;
+if(!current){
+  current = "Novo cliente";
+  clientList = [current];
+  saveClientList(clientList);
+  saveClientData(current, {kw:[{n:"",min:0,max:0,c:0}], taxa:20, ticket:0});
+}
+
+function fmtR(n){ return "R$ " + Math.round(n||0).toLocaleString("pt-BR"); }
+function fmtN(n){ return Math.round(n||0).toLocaleString("pt-BR"); }
+
+function renderClientSel(){
+  var sel = document.getElementById("clientSel");
+  sel.innerHTML = "";
+  clientList.forEach(function(name){
+    var o = document.createElement("option");
+    o.value = name; o.textContent = name;
+    if(name === current) o.selected = true;
+    sel.appendChild(o);
+  });
+}
+
+function renderKwTable(data){
+  var body = document.getElementById("kwBody");
+  body.innerHTML = "";
+  data.kw.forEach(function(row, i){
+    var tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td><input data-i="'+i+'" data-f="n" value="'+(row.n||"").replace(/"/g,"&quot;")+'" placeholder="ex: implante dentario cidade"></td>'+
+      '<td><input type="number" step="0.01" data-i="'+i+'" data-f="min" value="'+row.min+'"></td>'+
+      '<td><input type="number" step="0.01" data-i="'+i+'" data-f="max" value="'+row.max+'"></td>'+
+      '<td><input type="number" data-i="'+i+'" data-f="c" value="'+row.c+'"></td>'+
+      '<td class="num cpcMedio">R$ 0</td>'+
+      '<td class="num orcDia">R$ 0</td>'+
+      '<td style="text-align:center"><button class="del-btn" data-del="'+i+'" title="Remover">×</button></td>';
+    body.appendChild(tr);
+  });
+  Array.from(body.querySelectorAll("input")).forEach(function(inp){
+    inp.addEventListener("input", function(){
+      var i = +inp.dataset.i, f = inp.dataset.f;
+      var data = loadClientData(current);
+      data.kw[i][f] = (f === "n") ? inp.value : (parseFloat(inp.value) || 0);
+      saveClientData(current, data);
+      calc();
+    });
+  });
+  Array.from(body.querySelectorAll("button[data-del]")).forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var data = loadClientData(current);
+      data.kw.splice(+btn.dataset.del, 1);
+      if(data.kw.length === 0) data.kw.push({n:"",min:0,max:0,c:0});
+      saveClientData(current, data);
+      renderKwTable(data);
+      calc();
+    });
+  });
+}
+
+function calc(){
+  var data = loadClientData(current);
+  var rows = document.querySelectorAll("#kwBody tr");
+  var totMensal = 0, totCliquesDia = 0, somaCpcPonderada = 0;
+  data.kw.forEach(function(row, i){
+    var cpcMedio = (row.min + row.max) / 2;
+    var orcDia = cpcMedio * row.c;
+    totMensal += orcDia * 30;
+    totCliquesDia += row.c;
+    somaCpcPonderada += cpcMedio * row.c;
+    if(rows[i]){
+      rows[i].querySelector(".cpcMedio").textContent = fmtR(cpcMedio);
+      rows[i].querySelector(".orcDia").textContent = fmtR(orcDia);
+    }
+  });
+  var cpcGeral = totCliquesDia > 0 ? somaCpcPonderada / totCliquesDia : 0;
+  document.getElementById("totMensal").textContent = fmtR(totMensal);
+  var totCliquesMes = totCliquesDia * 30;
+  document.getElementById("totCliques").textContent = fmtN(totCliquesMes);
+
+  [{rate:.05,pre:"p"},{rate:.10,pre:"r"},{rate:.15,pre:"o"}].forEach(function(s){
+    document.getElementById(s.pre+"-cpc").textContent = fmtR(cpcGeral);
+    document.getElementById(s.pre+"-cli").textContent = fmtN(totCliquesMes);
+    document.getElementById(s.pre+"-leads").textContent = fmtN(totCliquesMes * s.rate);
+  });
+  calcFat(totCliquesMes);
+}
+
+function calcFat(totCliquesMes){
+  var data = loadClientData(current);
+  var taxaPct = parseFloat(document.getElementById("taxaFech").value) || 0;
+  var ticket = parseFloat(document.getElementById("ticket").value) || 0;
+  data.taxa = taxaPct; data.ticket = ticket;
+  saveClientData(current, data);
+  var taxa = taxaPct / 100;
+  [{rate:.05,pre:"p"},{rate:.10,pre:"r"},{rate:.15,pre:"o"}].forEach(function(s){
+    var leads = totCliquesMes * s.rate;
+    var fech = leads * taxa;
+    var fat = fech * ticket;
+    document.getElementById(s.pre+"-fcli").textContent = fmtN(fech);
+    document.getElementById(s.pre+"-fat").textContent = fmtR(fat);
+  });
+}
+
+function loadClient(name){
+  current = name;
+  var data = loadClientData(name) || {kw:[{n:"",min:0,max:0,c:0}], taxa:20, ticket:0};
+  renderKwTable(data);
+  document.getElementById("taxaFech").value = data.taxa || 20;
+  document.getElementById("ticket").value = data.ticket || 0;
+  calc();
+}
+
+document.getElementById("clientSel").addEventListener("change", function(e){ loadClient(e.target.value); });
+
+document.getElementById("newClientBtn").addEventListener("click", function(){
+  var name = prompt("Nome do novo cliente:");
+  if(!name || clientList.indexOf(name) !== -1) return;
+  clientList.push(name);
+  saveClientList(clientList);
+  saveClientData(name, {kw:[{n:"",min:0,max:0,c:0}], taxa:20, ticket:0});
+  renderClientSel();
+  loadClient(name);
+});
+
+document.getElementById("delClientBtn").addEventListener("click", function(){
+  if(clientList.length <= 1){ alert("Precisa ter pelo menos um cliente."); return; }
+  if(!confirm('Excluir o cliente "'+current+'"? Essa ação não pode ser desfeita.')) return;
+  localStorage.removeItem(PREFIX + current);
+  clientList = clientList.filter(function(n){ return n !== current; });
+  saveClientList(clientList);
+  renderClientSel();
+  loadClient(clientList[0]);
+});
+
+document.getElementById("addRowBtn").addEventListener("click", function(){
+  var data = loadClientData(current);
+  data.kw.push({n:"",min:0,max:0,c:0});
+  saveClientData(current, data);
+  renderKwTable(data);
+  calc();
+});
+
+document.getElementById("exportBtn").addEventListener("click", function(){
+  var data = loadClientData(current);
+  var payload = {cliente: current, dados: data, exportadoEm: new Date().toISOString()};
+  var blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "planejamento-" + current.toLowerCase().replace(/[^a-z0-9]+/g,"-") + ".json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById("importFile").addEventListener("change", function(e){
+  var file = e.target.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(evt){
+    try{
+      var payload = JSON.parse(evt.target.result);
+      var name = payload.cliente || file.name.replace(".json","");
+      if(clientList.indexOf(name) === -1){
+        clientList.push(name);
+        saveClientList(clientList);
+      }
+      saveClientData(name, payload.dados);
+      renderClientSel();
+      loadClient(name);
+    }catch(err){
+      alert("Não foi possível ler esse arquivo. Verifique se é um .json exportado por esta ferramenta.");
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+
+document.getElementById("taxaFech").addEventListener("input", function(){
+  var totCliques = parseFloat(document.getElementById("totCliques").textContent.replace(/\D/g,"")) || 0;
+  calcFat(totCliques);
+});
+document.getElementById("ticket").addEventListener("input", function(){
+  var totCliques = parseFloat(document.getElementById("totCliques").textContent.replace(/\D/g,"")) || 0;
+  calcFat(totCliques);
+});
+
+renderClientSel();
+loadClient(current);
+</script>
+</body>
+</html>
