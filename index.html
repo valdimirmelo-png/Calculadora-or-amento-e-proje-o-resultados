@@ -87,7 +87,8 @@ td.num{text-align:right;font-weight:500}
     <table>
       <thead>
         <tr>
-          <th style="width:32%">Palavra-chave</th>
+          <th style="width:28%">Palavra-chave</th>
+          <th>Volume de busca</th>
           <th>CPC mín (R$)</th>
           <th>CPC máx (R$)</th>
           <th>Cliques/dia</th>
@@ -174,7 +175,7 @@ if(!current){
   current = "Novo cliente";
   clientList = [current];
   saveClientList(clientList);
-  saveClientData(current, {kw:[{n:"",min:0,max:0,c:0}], taxa:20, ticket:0});
+  saveClientData(current, {kw:[{n:"",v:0,min:0,max:0,c:0}], taxa:20, ticket:0});
 }
 
 function fmtR(n){ return "R$ " + Math.round(n||0).toLocaleString("pt-BR"); }
@@ -198,6 +199,7 @@ function renderKwTable(data){
     var tr = document.createElement("tr");
     tr.innerHTML =
       '<td><input data-i="'+i+'" data-f="n" value="'+(row.n||"").replace(/"/g,"&quot;")+'" placeholder="ex: implante dentario cidade"></td>'+
+      '<td><input type="number" min="0" data-i="'+i+'" data-f="v" value="'+(row.v||0)+'"></td>'+
       '<td><input type="number" step="0.01" data-i="'+i+'" data-f="min" value="'+row.min+'"></td>'+
       '<td><input type="number" step="0.01" data-i="'+i+'" data-f="max" value="'+row.max+'"></td>'+
       '<td><input type="number" data-i="'+i+'" data-f="c" value="'+row.c+'"></td>'+
@@ -219,7 +221,7 @@ function renderKwTable(data){
     btn.addEventListener("click", function(){
       var data = loadClientData(current);
       data.kw.splice(+btn.dataset.del, 1);
-      if(data.kw.length === 0) data.kw.push({n:"",min:0,max:0,c:0});
+      if(data.kw.length === 0) data.kw.push({n:"",v:0,min:0,max:0,c:0});
       saveClientData(current, data);
       renderKwTable(data);
       calc();
@@ -273,7 +275,7 @@ function calcFat(totCliquesMes){
 
 function loadClient(name){
   current = name;
-  var data = loadClientData(name) || {kw:[{n:"",min:0,max:0,c:0}], taxa:20, ticket:0};
+  var data = loadClientData(name) || {kw:[{n:"",v:0,min:0,max:0,c:0}], taxa:20, ticket:0};
   renderKwTable(data);
   document.getElementById("taxaFech").value = data.taxa || 20;
   document.getElementById("ticket").value = data.ticket || 0;
@@ -287,7 +289,7 @@ document.getElementById("newClientBtn").addEventListener("click", function(){
   if(!name || clientList.indexOf(name) !== -1) return;
   clientList.push(name);
   saveClientList(clientList);
-  saveClientData(name, {kw:[{n:"",min:0,max:0,c:0}], taxa:20, ticket:0});
+  saveClientData(name, {kw:[{n:"",v:0,min:0,max:0,c:0}], taxa:20, ticket:0});
   renderClientSel();
   loadClient(name);
 });
@@ -304,7 +306,7 @@ document.getElementById("delClientBtn").addEventListener("click", function(){
 
 document.getElementById("addRowBtn").addEventListener("click", function(){
   var data = loadClientData(current);
-  data.kw.push({n:"",min:0,max:0,c:0});
+  data.kw.push({n:"",v:0,min:0,max:0,c:0});
   saveClientData(current, data);
   renderKwTable(data);
   calc();
