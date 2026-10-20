@@ -29,6 +29,12 @@ td{padding:4px;border-bottom:1px solid var(--border2)}
 td input{width:100%;height:32px;border:1px solid var(--border2);border-radius:6px;padding:0 8px;outline:none;font-size:13px}
 td input:focus{border-color:var(--green)}
 td.num{text-align:right;font-weight:500}
+.handle{cursor:grab;color:var(--text4);user-select:none;-webkit-user-select:none;touch-action:none;padding:6px 4px;font-size:15px;letter-spacing:-2px;display:inline-block}
+.handle:hover{color:var(--green)}
+.handle:active{cursor:grabbing}
+tr.dragging{opacity:.45;background:var(--surface3)}
+tr.drop-before td{border-top:2px solid var(--green)}
+tr.drop-after td{border-bottom:2px solid var(--green)}
 .del-btn{border:none;background:none;cursor:pointer;color:var(--text4);padding:4px;font-size:15px;line-height:1}
 .del-btn:hover{color:var(--redtx)}
 .add-row{margin-top:10px;background:none;border:1px dashed var(--border2);border-radius:var(--rs);padding:8px 14px;cursor:pointer;color:var(--text3);font-size:12px;width:100%;text-align:center}
@@ -87,6 +93,7 @@ td.num{text-align:right;font-weight:500}
     <table>
       <thead>
         <tr>
+          <th style="width:22px"></th>
           <th style="width:28%">Palavra-chave</th>
           <th>Volume de busca</th>
           <th>CPC mín (R$)</th>
@@ -198,6 +205,7 @@ function renderKwTable(data){
   data.kw.forEach(function(row, i){
     var tr = document.createElement("tr");
     tr.innerHTML =
+      '<td style="text-align:center"><span class="handle" data-h="'+i+'" title="Arraste para reordenar">⋮⋮</span></td>'+
       '<td><input data-i="'+i+'" data-f="n" value="'+(row.n||"").replace(/"/g,"&quot;")+'" placeholder="ex: implante dentario cidade"></td>'+
       '<td><input type="number" min="0" data-i="'+i+'" data-f="v" value="'+(row.v||0)+'"></td>'+
       '<td><input type="number" step="0.01" data-i="'+i+'" data-f="min" value="'+row.min+'"></td>'+
@@ -215,6 +223,42 @@ function renderKwTable(data){
       data.kw[i][f] = (f === "n") ? inp.value : (parseFloat(inp.value) || 0);
       saveClientData(current, data);
       calc();
+    });
+  });
+  Array.from(body.querySelectorAll(".handle")).forEach(function(h){
+    h.addEventListener("pointerdown", function(e){
+      e.preventDefault();
+      var from = +h.dataset.h, to = from;
+      var trs = Array.from(body.children);
+      trs[from].classList.add("dragging");
+      try{ h.setPointerCapture(e.pointerId); }catch(err){}
+      function clearMarks(){ trs.forEach(function(t){ t.classList.remove("drop-before","drop-after"); }); }
+      function move(ev){
+        var el = document.elementFromPoint(ev.clientX, ev.clientY);
+        var tr = el && el.closest ? el.closest("#kwBody tr") : null;
+        if(!tr) return;
+        to = trs.indexOf(tr);
+        clearMarks();
+        if(to !== from) trs[to].classList.add(to > from ? "drop-after" : "drop-before");
+      }
+      function up(){
+        h.removeEventListener("pointermove", move);
+        h.removeEventListener("pointerup", up);
+        h.removeEventListener("pointercancel", up);
+        trs[from].classList.remove("dragging");
+        clearMarks();
+        if(to !== from){
+          var data = loadClientData(current);
+          var item = data.kw.splice(from, 1)[0];
+          data.kw.splice(to, 0, item);
+          saveClientData(current, data);
+          renderKwTable(data);
+          calc();
+        }
+      }
+      h.addEventListener("pointermove", move);
+      h.addEventListener("pointerup", up);
+      h.addEventListener("pointercancel", up);
     });
   });
   Array.from(body.querySelectorAll("button[data-del]")).forEach(function(btn){
