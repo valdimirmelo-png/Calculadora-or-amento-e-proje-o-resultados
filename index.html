@@ -13,11 +13,17 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text2);min
 .brand-bar{background:var(--mid);border-radius:var(--r);padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px}
 .brand-left{color:#fff;font-weight:700;font-size:15px;letter-spacing:-0.02em}
 .client-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-select,input,button{font-family:'Outfit',sans-serif;font-size:13px}
+select,input,button,textarea{font-family:'Outfit',sans-serif;font-size:13px}
 select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:7px;color:#fff;padding:7px 10px;outline:none;min-width:160px}
 select option{color:#000}
 .btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:7px;color:#fff;padding:7px 12px;cursor:pointer;transition:background .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .btn:hover{background:rgba(255,255,255,.2)}
+.tabs{display:flex;gap:6px;margin-bottom:.5rem;border-bottom:1px solid var(--border2)}
+.tab{background:none;border:none;border-bottom:3px solid transparent;padding:10px 16px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text3);margin-bottom:-1px}
+.tab:hover{color:var(--text2)}
+.tab.active{color:var(--dark);border-bottom-color:var(--green)}
+.tab .cnt{display:inline-block;min-width:20px;padding:1px 7px;margin-left:6px;border-radius:10px;background:var(--surface3);font-size:11px;font-weight:700;color:var(--text3)}
+.tab.active .cnt{background:var(--greenbg);color:var(--greentx)}
 .section-head{display:flex;align-items:flex-start;gap:12px;margin:1.75rem 0 1rem}
 .step-num{width:26px;height:26px;border-radius:50%;background:var(--dark);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .step-title{font-size:16px;font-weight:700;color:var(--text2)}
@@ -29,6 +35,8 @@ td{padding:4px;border-bottom:1px solid var(--border2)}
 td input{width:100%;height:32px;border:1px solid var(--border2);border-radius:6px;padding:0 8px;outline:none;font-size:13px}
 td input:focus{border-color:var(--green)}
 td.num{text-align:right;font-weight:500}
+.tw{overflow-x:auto}
+.tw table{min-width:780px}
 .handle{cursor:grab;color:var(--text4);user-select:none;-webkit-user-select:none;touch-action:none;padding:6px 4px;font-size:15px;letter-spacing:-2px;display:inline-block}
 .handle:hover{color:var(--green)}
 .handle:active{cursor:grabbing}
@@ -38,7 +46,22 @@ tr.drop-after td{border-bottom:2px solid var(--green)}
 .del-btn{border:none;background:none;cursor:pointer;color:var(--text4);padding:4px;font-size:15px;line-height:1}
 .del-btn:hover{color:var(--redtx)}
 .add-row{margin-top:10px;background:none;border:1px dashed var(--border2);border-radius:var(--rs);padding:8px 14px;cursor:pointer;color:var(--text3);font-size:12px;width:100%;text-align:center}
-.add-row:hover{border-color:var(--green);color:var(--green)}
+.add-row:hover,.add-row.drop-end{border-color:var(--green);color:var(--green)}
+.add-row.drop-end{background:var(--greenbg)}
+.camp{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.camp-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface3);flex-wrap:wrap}
+.tgl{border:none;background:none;cursor:pointer;color:var(--text3);font-size:15px;width:24px;height:30px}
+.camp-name{flex:1 1 220px;height:36px;border:1px solid var(--border2);border-radius:6px;padding:0 10px;font-weight:700;font-size:14px;outline:none;background:#fff}
+.camp-name:focus,.grp-name:focus{border-color:var(--green)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:#fff;border:1px solid var(--border2);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--text3)}
+.chip b{color:var(--text2)}
+.camp-body{padding:14px}
+.grp{border:1px solid var(--border2);border-radius:var(--rs);padding:10px;margin-bottom:12px}
+.grp-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.grp-ico{color:var(--text4);font-size:14px}
+.grp-name{flex:1 1 200px;height:32px;border:1px solid var(--border2);border-radius:6px;padding:0 10px;font-weight:600;font-size:13px;outline:none}
+.grp-sub{font-size:11px;color:var(--text3)}
 .mg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1.1rem}
 .mc{background:var(--surface3);border-radius:var(--rs);padding:14px}
 .mc-lbl{font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;font-weight:500}
@@ -68,6 +91,21 @@ tr.drop-after td{border-bottom:2px solid var(--green)}
 .rb-lbl{font-size:9px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
 .rb-val{font-size:19px;font-weight:700;color:#fff;margin-top:3px}
 .save-status{font-size:11px;color:var(--green);margin-top:1rem;display:flex;align-items:center;gap:5px;min-height:16px}
+.card select{background:#fff;color:var(--text2);border:1px solid var(--border2);border-radius:6px;padding:0 8px;height:32px;min-width:0;outline:none;width:100%}
+.card select:focus{border-color:var(--green)}
+.neg-add textarea{width:100%;border:1px solid var(--border2);border-radius:var(--rs);padding:10px 12px;resize:vertical;outline:none}
+.neg-add textarea:focus{border-color:var(--green)}
+.neg-ctrl{display:flex;gap:10px;margin:10px 0 1.1rem;flex-wrap:wrap}
+.neg-ctrl select{height:36px;width:auto;flex:1 1 200px}
+.btn-g{background:var(--green);color:#fff;border:none;border-radius:var(--rs);padding:0 18px;height:36px;font-weight:600;cursor:pointer}
+.btn-g:hover{background:#27996a}
+.btn-o{background:none;color:var(--text3);border:1px solid var(--border2);border-radius:var(--rs);padding:0 14px;height:34px;cursor:pointer}
+.btn-o:hover{border-color:var(--green);color:var(--green)}
+.neg-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.neg-bar select{width:auto;min-width:240px;max-width:100%;height:34px}
+.neg-foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:12px;color:var(--text3);gap:10px;flex-wrap:wrap}
+.neg-empty{text-align:center;color:var(--text4);padding:18px 0;font-size:13px}
+.neg-term{padding:0 8px;font-weight:500;word-break:break-word}
 @media(max-width:768px){.mg2,.scen3,.inputs2{grid-template-columns:1fr}table{font-size:11px}}
 </style>
 </head>
@@ -85,72 +123,101 @@ tr.drop-after td{border-bottom:2px solid var(--green)}
     </div>
   </div>
 
-  <div class="section-head">
-    <div class="step-num">1</div>
-    <div><div class="step-title">Palavras-chave e orçamento</div><div class="step-desc">Cole os valores mín/máx do Planejador de Palavras-chave do Google</div></div>
+  <div class="tabs">
+    <button class="tab active" data-tab="plan">Planejamento</button>
+    <button class="tab" data-tab="neg">Palavras-chave negativas<span class="cnt" id="negTabCount">0</span></button>
   </div>
-  <div class="card">
-    <table>
-      <thead>
-        <tr>
-          <th style="width:22px"></th>
-          <th style="width:28%">Palavra-chave</th>
-          <th>Volume de busca</th>
-          <th>CPC mín (R$)</th>
-          <th>CPC máx (R$)</th>
-          <th>Cliques/dia</th>
-          <th>CPC médio</th>
-          <th>Orç. diário</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="kwBody"></tbody>
-    </table>
-    <button class="add-row" id="addRowBtn">+ Adicionar palavra-chave</button>
-    <div class="mg2">
-      <div class="mc"><div class="mc-lbl">Investimento mensal total</div><div class="mc-val" id="totMensal">R$ 0</div></div>
-      <div class="mc"><div class="mc-lbl">Cliques/mês estimados</div><div class="mc-val" id="totCliques">0</div></div>
+
+  <div id="tab-plan">
+    <div class="section-head">
+      <div class="step-num">1</div>
+      <div><div class="step-title">Palavras-chave e orçamento</div><div class="step-desc">Organize por campanha e grupo de anúncios. Cole os valores mín/máx do Planejador de Palavras-chave do Google. Arraste pela alça ⋮⋮ para reordenar ou mover entre grupos.</div></div>
+    </div>
+
+    <div id="campaigns"></div>
+    <button class="add-row" id="addCampBtn" style="margin-top:0">+ Nova campanha</button>
+
+    <div class="card" style="margin-top:14px">
+      <div class="mg2" style="margin-top:0">
+        <div class="mc"><div class="mc-lbl">Investimento mensal total</div><div class="mc-val" id="totMensal">R$ 0</div></div>
+        <div class="mc"><div class="mc-lbl">Cliques/mês estimados</div><div class="mc-val" id="totCliques">0</div></div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div class="step-num">2</div>
+      <div><div class="step-title">Projeção de leads</div><div class="step-desc">Três cenários de geração de leads a partir do orçamento acima</div></div>
+    </div>
+    <div class="scen3">
+      <div class="scard">
+        <div class="badge p">Pessimista<span class="pctval">5%</span></div>
+        <div class="mrow"><span>CPC médio</span><span id="p-cpc">R$ 0</span></div>
+        <div class="mrow"><span>Cliques/mês</span><span id="p-cli">0</span></div>
+        <div class="mrow"><span>Taxa de conversão</span><span>5%</span></div>
+        <div class="bigbox"><div class="biglbl">Leads gerados/mês</div><div class="bigval" id="p-leads">0</div><div class="bigsub">leads</div></div>
+        <div class="resultbar"><div class="rb-cell"><div class="rb-lbl">Possíveis clientes</div><div class="rb-val" id="p-fcli">0</div></div><div class="rb-cell"><div class="rb-lbl">Faturamento</div><div class="rb-val" id="p-fat">R$ 0</div></div></div>
+      </div>
+      <div class="scard">
+        <div class="badge r">Realista<span class="pctval">10%</span></div>
+        <div class="mrow"><span>CPC médio</span><span id="r-cpc">R$ 0</span></div>
+        <div class="mrow"><span>Cliques/mês</span><span id="r-cli">0</span></div>
+        <div class="mrow"><span>Taxa de conversão</span><span>10%</span></div>
+        <div class="bigbox"><div class="biglbl">Leads gerados/mês</div><div class="bigval" id="r-leads">0</div><div class="bigsub">leads</div></div>
+        <div class="resultbar"><div class="rb-cell"><div class="rb-lbl">Possíveis clientes</div><div class="rb-val" id="r-fcli">0</div></div><div class="rb-cell"><div class="rb-lbl">Faturamento</div><div class="rb-val" id="r-fat">R$ 0</div></div></div>
+      </div>
+      <div class="scard">
+        <div class="badge o">Otimista<span class="pctval">15%</span></div>
+        <div class="mrow"><span>CPC médio</span><span id="o-cpc">R$ 0</span></div>
+        <div class="mrow"><span>Cliques/mês</span><span id="o-cli">0</span></div>
+        <div class="mrow"><span>Taxa de conversão</span><span>15%</span></div>
+        <div class="bigbox"><div class="biglbl">Leads gerados/mês</div><div class="bigval" id="o-leads">0</div><div class="bigsub">leads</div></div>
+        <div class="resultbar"><div class="rb-cell"><div class="rb-lbl">Possíveis clientes</div><div class="rb-val" id="o-fcli">0</div></div><div class="rb-cell"><div class="rb-lbl">Faturamento</div><div class="rb-val" id="o-fat">R$ 0</div></div></div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div class="step-num">3</div>
+      <div><div class="step-title">Estimativa de faturamento</div><div class="step-desc">Informe sua taxa de fechamento e ticket médio para calcular clientes e receita</div></div>
+    </div>
+    <div class="inputs2">
+      <div class="field"><label>Minha taxa de fechamento</label><div class="inpwrap"><span class="prefix">%</span><input type="number" id="taxaFech" value="20" min="0" max="100" placeholder="ex: 10"></div></div>
+      <div class="field"><label>Ticket médio</label><div class="inpwrap"><span class="prefix">R$</span><input type="number" id="ticket" value="300" min="0" placeholder="ex: 500"></div></div>
     </div>
   </div>
 
-  <div class="section-head">
-    <div class="step-num">2</div>
-    <div><div class="step-title">Projeção de leads</div><div class="step-desc">Três cenários de geração de leads a partir do orçamento acima</div></div>
-  </div>
-  <div class="scen3">
-    <div class="scard">
-      <div class="badge p">Pessimista<span class="pctval">5%</span></div>
-      <div class="mrow"><span>CPC médio</span><span id="p-cpc">R$ 0</span></div>
-      <div class="mrow"><span>Cliques/mês</span><span id="p-cli">0</span></div>
-      <div class="mrow"><span>Taxa de conversão</span><span>5%</span></div>
-      <div class="bigbox"><div class="biglbl">Leads gerados/mês</div><div class="bigval" id="p-leads">0</div><div class="bigsub">leads</div></div>
-      <div class="resultbar"><div class="rb-cell"><div class="rb-lbl">Possíveis clientes</div><div class="rb-val" id="p-fcli">0</div></div><div class="rb-cell"><div class="rb-lbl">Faturamento</div><div class="rb-val" id="p-fat">R$ 0</div></div></div>
+  <div id="tab-neg" style="display:none">
+    <div class="section-head">
+      <div class="step-num">−</div>
+      <div><div class="step-title">Palavras-chave negativas</div><div class="step-desc">Termos que você não quer que disparem os anúncios. Cole várias de uma vez, uma por linha. Se digitar [termo] vira exata e "termo" vira frase.</div></div>
     </div>
-    <div class="scard">
-      <div class="badge r">Realista<span class="pctval">10%</span></div>
-      <div class="mrow"><span>CPC médio</span><span id="r-cpc">R$ 0</span></div>
-      <div class="mrow"><span>Cliques/mês</span><span id="r-cli">0</span></div>
-      <div class="mrow"><span>Taxa de conversão</span><span>10%</span></div>
-      <div class="bigbox"><div class="biglbl">Leads gerados/mês</div><div class="bigval" id="r-leads">0</div><div class="bigsub">leads</div></div>
-      <div class="resultbar"><div class="rb-cell"><div class="rb-lbl">Possíveis clientes</div><div class="rb-val" id="r-fcli">0</div></div><div class="rb-cell"><div class="rb-lbl">Faturamento</div><div class="rb-val" id="r-fat">R$ 0</div></div></div>
+    <div class="card">
+      <div class="neg-add">
+        <textarea id="negInput" rows="3" placeholder="ex: gratis&#10;curso&#10;&quot;preço da consulta sus&quot;&#10;[emprego dentista]"></textarea>
+        <div class="neg-ctrl">
+          <select id="negMatch">
+            <option value="amplo">Correspondência ampla</option>
+            <option value="frase">Correspondência de frase</option>
+            <option value="exata">Correspondência exata</option>
+          </select>
+          <select id="negScope"></select>
+          <button class="btn-g" id="negAddBtn">Adicionar</button>
+        </div>
+      </div>
+      <div class="neg-bar">
+        <select id="negFilter"></select>
+        <span class="step-desc" id="negCount"></span>
+      </div>
+      <div class="tw">
+        <table style="min-width:640px">
+          <thead><tr><th style="width:40px">#</th><th>Palavra-chave negativa</th><th style="width:190px">Tipo</th><th style="width:250px">Escopo</th><th style="width:32px"></th></tr></thead>
+          <tbody id="negBody"></tbody>
+        </table>
+      </div>
+      <div class="neg-foot">
+        <span>Dica: use "Toda a conta" para termos que nunca servem (grátis, curso, emprego).</span>
+        <button class="btn-o" id="negCopyBtn">Copiar lista exibida (formato Google Ads)</button>
+      </div>
     </div>
-    <div class="scard">
-      <div class="badge o">Otimista<span class="pctval">15%</span></div>
-      <div class="mrow"><span>CPC médio</span><span id="o-cpc">R$ 0</span></div>
-      <div class="mrow"><span>Cliques/mês</span><span id="o-cli">0</span></div>
-      <div class="mrow"><span>Taxa de conversão</span><span>15%</span></div>
-      <div class="bigbox"><div class="biglbl">Leads gerados/mês</div><div class="bigval" id="o-leads">0</div><div class="bigsub">leads</div></div>
-      <div class="resultbar"><div class="rb-cell"><div class="rb-lbl">Possíveis clientes</div><div class="rb-val" id="o-fcli">0</div></div><div class="rb-cell"><div class="rb-lbl">Faturamento</div><div class="rb-val" id="o-fat">R$ 0</div></div></div>
-    </div>
-  </div>
-
-  <div class="section-head">
-    <div class="step-num">3</div>
-    <div><div class="step-title">Estimativa de faturamento</div><div class="step-desc">Informe sua taxa de fechamento e ticket médio para calcular clientes e receita</div></div>
-  </div>
-  <div class="inputs2">
-    <div class="field"><label>Minha taxa de fechamento</label><div class="inpwrap"><span class="prefix">%</span><input type="number" id="taxaFech" value="20" min="0" max="100" placeholder="ex: 10"></div></div>
-    <div class="field"><label>Ticket médio</label><div class="inpwrap"><span class="prefix">R$</span><input type="number" id="ticket" value="300" min="0" placeholder="ex: 500"></div></div>
   </div>
 
   <div class="save-status" id="saveStatus"></div>
@@ -161,12 +228,53 @@ tr.drop-after td{border-bottom:2px solid var(--green)}
 var LIST_KEY = "planejamento_clientes_lista";
 var PREFIX = "planejamento_cliente:";
 
+function uid(){ return Math.random().toString(36).slice(2, 9); }
+function esc(s){ return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function newKw(){ return {n:"", v:0, min:0, max:0, c:0}; }
+function newGroup(nome){ return {id:uid(), nome:nome, kw:[newKw()]}; }
+function newCampaign(nome){ return {id:uid(), nome:nome, grupos:[newGroup("Grupo 1")]}; }
+function blankData(){ return {campanhas:[newCampaign("Campanha 1")], neg:[], taxa:20, ticket:0}; }
+
+// Converte dados antigos (lista única de palavras-chave) para campanha > grupo e garante ids
+function normalize(d){
+  if(!d) d = blankData();
+  if(!d.campanhas || !d.campanhas.length){
+    var kw = (d.kw && d.kw.length) ? d.kw : [newKw()];
+    d.campanhas = [{id:uid(), nome:"Campanha 1", grupos:[{id:uid(), nome:"Grupo 1", kw:kw}]}];
+  }
+  delete d.kw;
+  var ids = {all:true};
+  d.campanhas.forEach(function(c){
+    if(!c.id) c.id = uid();
+    if(c.nome == null) c.nome = "";
+    ids["c:" + c.id] = true;
+    if(!c.grupos || !c.grupos.length) c.grupos = [newGroup("Grupo 1")];
+    c.grupos.forEach(function(g){
+      if(!g.id) g.id = uid();
+      if(g.nome == null) g.nome = "";
+      ids["g:" + g.id] = true;
+      if(!g.kw) g.kw = [];
+      g.kw.forEach(function(k){ if(k.v == null) k.v = 0; });
+    });
+  });
+  if(!d.neg) d.neg = [];
+  d.neg.forEach(function(n){ if(!ids[n.s]) n.s = "all"; });
+  return d;
+}
+
 function loadClientList(){
   try{ var raw = localStorage.getItem(LIST_KEY); return raw ? JSON.parse(raw) : []; }catch(e){ return []; }
 }
 function saveClientList(list){ localStorage.setItem(LIST_KEY, JSON.stringify(list)); }
 function loadClientData(name){
-  try{ var raw = localStorage.getItem(PREFIX + name); return raw ? JSON.parse(raw) : null; }catch(e){ return null; }
+  try{
+    var raw = localStorage.getItem(PREFIX + name);
+    if(!raw) return null;
+    var d = normalize(JSON.parse(raw));
+    var out = JSON.stringify(d);
+    if(out !== raw) localStorage.setItem(PREFIX + name, out); // grava a migração em silêncio
+    return d;
+  }catch(e){ return null; }
 }
 function saveClientData(name, data){
   localStorage.setItem(PREFIX + name, JSON.stringify(data));
@@ -182,11 +290,23 @@ if(!current){
   current = "Novo cliente";
   clientList = [current];
   saveClientList(clientList);
-  saveClientData(current, {kw:[{n:"",v:0,min:0,max:0,c:0}], taxa:20, ticket:0});
+  saveClientData(current, blankData());
 }
 
 function fmtR(n){ return "R$ " + Math.round(n||0).toLocaleString("pt-BR"); }
 function fmtN(n){ return Math.round(n||0).toLocaleString("pt-BR"); }
+
+function findCamp(data, cid){
+  for(var i = 0; i < data.campanhas.length; i++) if(data.campanhas[i].id === cid) return data.campanhas[i];
+  return null;
+}
+function findGroup(data, gid){
+  for(var i = 0; i < data.campanhas.length; i++){
+    var c = data.campanhas[i];
+    for(var j = 0; j < c.grupos.length; j++) if(c.grupos[j].id === gid) return {c:c, g:c.grupos[j]};
+  }
+  return null;
+}
 
 function renderClientSel(){
   var sel = document.getElementById("clientSel");
@@ -199,94 +319,89 @@ function renderClientSel(){
   });
 }
 
-function renderKwTable(data){
-  var body = document.getElementById("kwBody");
-  body.innerHTML = "";
-  data.kw.forEach(function(row, i){
-    var tr = document.createElement("tr");
-    tr.innerHTML =
-      '<td style="text-align:center"><span class="handle" data-h="'+i+'" title="Arraste para reordenar">⋮⋮</span></td>'+
-      '<td><input data-i="'+i+'" data-f="n" value="'+(row.n||"").replace(/"/g,"&quot;")+'" placeholder="ex: implante dentario cidade"></td>'+
-      '<td><input type="number" min="0" data-i="'+i+'" data-f="v" value="'+(row.v||0)+'"></td>'+
-      '<td><input type="number" step="0.01" data-i="'+i+'" data-f="min" value="'+row.min+'"></td>'+
-      '<td><input type="number" step="0.01" data-i="'+i+'" data-f="max" value="'+row.max+'"></td>'+
-      '<td><input type="number" data-i="'+i+'" data-f="c" value="'+row.c+'"></td>'+
-      '<td class="num cpcMedio">R$ 0</td>'+
-      '<td class="num orcDia">R$ 0</td>'+
-      '<td style="text-align:center"><button class="del-btn" data-del="'+i+'" title="Remover">×</button></td>';
-    body.appendChild(tr);
+/* ---------- Campanhas, grupos e palavras-chave ---------- */
+function renderCampaigns(data){
+  var html = "";
+  data.campanhas.forEach(function(c){
+    html += '<div class="camp">'+
+      '<div class="camp-head">'+
+        '<button class="tgl" data-tgl="'+c.id+'" title="Recolher/expandir">'+(c.fechada ? "▸" : "▾")+'</button>'+
+        '<input class="camp-name" data-cname="'+c.id+'" value="'+esc(c.nome)+'" placeholder="Nome da campanha (ex: Implante dentário)">'+
+        '<div class="chips">'+
+          '<span class="chip"><b data-cs="orc-'+c.id+'">R$ 0</b>/dia</span>'+
+          '<span class="chip"><b data-cs="mes-'+c.id+'">R$ 0</b>/mês</span>'+
+          '<span class="chip"><b data-cs="cli-'+c.id+'">0</b> cliques/mês</span>'+
+        '</div>'+
+        '<button class="del-btn" data-delcamp="'+c.id+'" title="Excluir campanha">×</button>'+
+      '</div>';
+    if(!c.fechada){
+      html += '<div class="camp-body">';
+      c.grupos.forEach(function(g){
+        html += '<div class="grp">'+
+          '<div class="grp-head">'+
+            '<span class="grp-ico">↳</span>'+
+            '<input class="grp-name" data-gname="'+g.id+'" value="'+esc(g.nome)+'" placeholder="Nome do grupo (ex: implante dentário preço)">'+
+            '<span class="grp-sub" data-gs="'+g.id+'"></span>'+
+            '<button class="del-btn" data-delgrp="'+g.id+'" title="Excluir grupo">×</button>'+
+          '</div>'+
+          '<div class="tw"><table><thead><tr>'+
+            '<th style="width:22px"></th><th style="width:26%">Palavra-chave</th><th>Volume de busca</th><th>CPC mín (R$)</th><th>CPC máx (R$)</th><th>Cliques/dia</th><th>CPC médio</th><th>Orç. diário</th><th></th>'+
+          '</tr></thead><tbody>';
+        g.kw.forEach(function(row, k){
+          var a = ' data-c="'+c.id+'" data-g="'+g.id+'" data-k="'+k+'"';
+          html += '<tr data-g="'+g.id+'" data-k="'+k+'">'+
+            '<td style="text-align:center"><span class="handle"'+a+' title="Arraste para reordenar">⋮⋮</span></td>'+
+            '<td><input'+a+' data-f="n" value="'+esc(row.n)+'" placeholder="ex: implante dentario cidade"></td>'+
+            '<td><input type="number" min="0"'+a+' data-f="v" value="'+(row.v||0)+'"></td>'+
+            '<td><input type="number" step="0.01"'+a+' data-f="min" value="'+row.min+'"></td>'+
+            '<td><input type="number" step="0.01"'+a+' data-f="max" value="'+row.max+'"></td>'+
+            '<td><input type="number"'+a+' data-f="c" value="'+row.c+'"></td>'+
+            '<td class="num cpcMedio">R$ 0</td>'+
+            '<td class="num orcDia">R$ 0</td>'+
+            '<td style="text-align:center"><button class="del-btn" data-delkw="'+g.id+'" data-k="'+k+'" title="Remover">×</button></td>'+
+          '</tr>';
+        });
+        html += '</tbody></table></div>'+
+          '<button class="add-row" data-addkw="'+g.id+'">+ Adicionar palavra-chave</button>'+
+        '</div>';
+      });
+      html += '<button class="add-row" data-addgrp="'+c.id+'" style="margin-top:0">+ Adicionar grupo de anúncios</button></div>';
+    }
+    html += '</div>';
   });
-  Array.from(body.querySelectorAll("input")).forEach(function(inp){
-    inp.addEventListener("input", function(){
-      var i = +inp.dataset.i, f = inp.dataset.f;
-      var data = loadClientData(current);
-      data.kw[i][f] = (f === "n") ? inp.value : (parseFloat(inp.value) || 0);
-      saveClientData(current, data);
-      calc();
-    });
-  });
-  Array.from(body.querySelectorAll(".handle")).forEach(function(h){
-    h.addEventListener("pointerdown", function(e){
-      e.preventDefault();
-      var from = +h.dataset.h, to = from;
-      var trs = Array.from(body.children);
-      trs[from].classList.add("dragging");
-      try{ h.setPointerCapture(e.pointerId); }catch(err){}
-      function clearMarks(){ trs.forEach(function(t){ t.classList.remove("drop-before","drop-after"); }); }
-      function move(ev){
-        var el = document.elementFromPoint(ev.clientX, ev.clientY);
-        var tr = el && el.closest ? el.closest("#kwBody tr") : null;
-        if(!tr) return;
-        to = trs.indexOf(tr);
-        clearMarks();
-        if(to !== from) trs[to].classList.add(to > from ? "drop-after" : "drop-before");
-      }
-      function up(){
-        h.removeEventListener("pointermove", move);
-        h.removeEventListener("pointerup", up);
-        h.removeEventListener("pointercancel", up);
-        trs[from].classList.remove("dragging");
-        clearMarks();
-        if(to !== from){
-          var data = loadClientData(current);
-          var item = data.kw.splice(from, 1)[0];
-          data.kw.splice(to, 0, item);
-          saveClientData(current, data);
-          renderKwTable(data);
-          calc();
-        }
-      }
-      h.addEventListener("pointermove", move);
-      h.addEventListener("pointerup", up);
-      h.addEventListener("pointercancel", up);
-    });
-  });
-  Array.from(body.querySelectorAll("button[data-del]")).forEach(function(btn){
-    btn.addEventListener("click", function(){
-      var data = loadClientData(current);
-      data.kw.splice(+btn.dataset.del, 1);
-      if(data.kw.length === 0) data.kw.push({n:"",v:0,min:0,max:0,c:0});
-      saveClientData(current, data);
-      renderKwTable(data);
-      calc();
-    });
-  });
+  document.getElementById("campaigns").innerHTML = html;
 }
 
 function calc(){
   var data = loadClientData(current);
-  var rows = document.querySelectorAll("#kwBody tr");
   var totMensal = 0, totCliquesDia = 0, somaCpcPonderada = 0;
-  data.kw.forEach(function(row, i){
-    var cpcMedio = (row.min + row.max) / 2;
-    var orcDia = cpcMedio * row.c;
-    totMensal += orcDia * 30;
-    totCliquesDia += row.c;
-    somaCpcPonderada += cpcMedio * row.c;
-    if(rows[i]){
-      rows[i].querySelector(".cpcMedio").textContent = fmtR(cpcMedio);
-      rows[i].querySelector(".orcDia").textContent = fmtR(orcDia);
-    }
+  data.campanhas.forEach(function(c){
+    var cOrc = 0, cCli = 0;
+    c.grupos.forEach(function(g){
+      var gOrc = 0, gCli = 0;
+      var trs = document.querySelectorAll('tr[data-g="'+g.id+'"]');
+      g.kw.forEach(function(row, i){
+        var cpcMedio = (row.min + row.max) / 2;
+        var orcDia = cpcMedio * row.c;
+        gOrc += orcDia; gCli += row.c;
+        somaCpcPonderada += cpcMedio * row.c;
+        if(trs[i]){
+          trs[i].querySelector(".cpcMedio").textContent = fmtR(cpcMedio);
+          trs[i].querySelector(".orcDia").textContent = fmtR(orcDia);
+        }
+      });
+      cOrc += gOrc; cCli += gCli;
+      var gs = document.querySelector('[data-gs="'+g.id+'"]');
+      if(gs) gs.textContent = fmtR(gOrc) + "/dia · " + fmtN(gCli) + " cliques/dia";
+    });
+    totMensal += cOrc * 30;
+    totCliquesDia += cCli;
+    var e1 = document.querySelector('[data-cs="orc-'+c.id+'"]');
+    var e2 = document.querySelector('[data-cs="mes-'+c.id+'"]');
+    var e3 = document.querySelector('[data-cs="cli-'+c.id+'"]');
+    if(e1) e1.textContent = fmtR(cOrc);
+    if(e2) e2.textContent = fmtR(cOrc * 30);
+    if(e3) e3.textContent = fmtN(cCli * 30);
   });
   var cpcGeral = totCliquesDia > 0 ? somaCpcPonderada / totCliquesDia : 0;
   document.getElementById("totMensal").textContent = fmtR(totMensal);
@@ -317,10 +432,293 @@ function calcFat(totCliquesMes){
   });
 }
 
+var campEl = document.getElementById("campaigns");
+
+campEl.addEventListener("input", function(e){
+  var t = e.target, data, f;
+  if(t.dataset.f){
+    data = loadClientData(current);
+    f = findGroup(data, t.dataset.g);
+    if(!f) return;
+    var row = f.g.kw[+t.dataset.k];
+    if(!row) return;
+    row[t.dataset.f] = (t.dataset.f === "n") ? t.value : (parseFloat(t.value) || 0);
+    saveClientData(current, data);
+    calc();
+  } else if(t.dataset.cname){
+    data = loadClientData(current);
+    var c = findCamp(data, t.dataset.cname);
+    if(!c) return;
+    c.nome = t.value;
+    saveClientData(current, data);
+    renderNeg(data);
+  } else if(t.dataset.gname){
+    data = loadClientData(current);
+    f = findGroup(data, t.dataset.gname);
+    if(!f) return;
+    f.g.nome = t.value;
+    saveClientData(current, data);
+    renderNeg(data);
+  }
+});
+
+function refreshAll(data){
+  renderCampaigns(data);
+  renderNeg(data);
+  calc();
+}
+
+campEl.addEventListener("click", function(e){
+  var b = e.target.closest("button");
+  if(!b) return;
+  var data = loadClientData(current), c, f, n;
+  if(b.dataset.tgl){
+    c = findCamp(data, b.dataset.tgl);
+    c.fechada = !c.fechada;
+    saveClientData(current, data);
+    renderCampaigns(data); calc();
+  } else if(b.dataset.addkw){
+    f = findGroup(data, b.dataset.addkw);
+    f.g.kw.push(newKw());
+    saveClientData(current, data);
+    renderCampaigns(data); calc();
+  } else if(b.dataset.addgrp){
+    c = findCamp(data, b.dataset.addgrp);
+    c.grupos.push(newGroup("Grupo " + (c.grupos.length + 1)));
+    saveClientData(current, data);
+    refreshAll(data);
+  } else if(b.dataset.delkw){
+    f = findGroup(data, b.dataset.delkw);
+    f.g.kw.splice(+b.dataset.k, 1);
+    if(f.g.kw.length === 0) f.g.kw.push(newKw());
+    saveClientData(current, data);
+    renderCampaigns(data); calc();
+  } else if(b.dataset.delgrp){
+    f = findGroup(data, b.dataset.delgrp);
+    if(f.c.grupos.length <= 1){ alert("A campanha precisa ter pelo menos um grupo."); return; }
+    n = data.neg.filter(function(x){ return x.s === "g:" + f.g.id; }).length;
+    if(!confirm('Excluir o grupo "'+(f.g.nome || "sem nome")+'" e suas palavras-chave?' + (n ? "\nAs " + n + " palavra(s)-chave negativa(s) deste grupo também serão removidas." : ""))) return;
+    f.c.grupos = f.c.grupos.filter(function(g){ return g.id !== f.g.id; });
+    data.neg = data.neg.filter(function(x){ return x.s !== "g:" + f.g.id; });
+    saveClientData(current, data);
+    refreshAll(data);
+  } else if(b.dataset.delcamp){
+    if(data.campanhas.length <= 1){ alert("Precisa ter pelo menos uma campanha."); return; }
+    c = findCamp(data, b.dataset.delcamp);
+    var scopes = ["c:" + c.id].concat(c.grupos.map(function(g){ return "g:" + g.id; }));
+    n = data.neg.filter(function(x){ return scopes.indexOf(x.s) !== -1; }).length;
+    if(!confirm('Excluir a campanha "'+(c.nome || "sem nome")+'" com todos os grupos e palavras-chave?' + (n ? "\nAs " + n + " palavra(s)-chave negativa(s) desta campanha também serão removidas." : ""))) return;
+    data.campanhas = data.campanhas.filter(function(x){ return x.id !== c.id; });
+    data.neg = data.neg.filter(function(x){ return scopes.indexOf(x.s) === -1; });
+    saveClientData(current, data);
+    refreshAll(data);
+  }
+});
+
+// Arrastar e soltar (mouse e toque): reordena dentro do grupo ou move para outro grupo
+campEl.addEventListener("pointerdown", function(e){
+  var h = e.target.closest(".handle");
+  if(!h) return;
+  e.preventDefault();
+  var fromG = h.dataset.g, fromK = +h.dataset.k;
+  var srcTr = h.closest("tr");
+  var target = null;
+  srcTr.classList.add("dragging");
+  try{ h.setPointerCapture(e.pointerId); }catch(err){}
+  function clearMarks(){
+    Array.prototype.forEach.call(campEl.querySelectorAll(".drop-before,.drop-after,.drop-end"), function(x){
+      x.classList.remove("drop-before","drop-after","drop-end");
+    });
+  }
+  function move(ev){
+    var el = document.elementFromPoint(ev.clientX, ev.clientY);
+    if(!el || !el.closest) return;
+    var tr = el.closest("#campaigns tr[data-k]");
+    var add = el.closest("#campaigns [data-addkw]");
+    clearMarks();
+    target = null;
+    if(tr && tr !== srcTr){
+      var tg = tr.dataset.g, tk = +tr.dataset.k;
+      target = {g:tg, k:tk, append:false};
+      tr.classList.add((tg === fromG && tk > fromK) ? "drop-after" : "drop-before");
+    } else if(add){
+      target = {g:add.dataset.addkw, k:0, append:true};
+      add.classList.add("drop-end");
+    }
+  }
+  function up(){
+    h.removeEventListener("pointermove", move);
+    h.removeEventListener("pointerup", up);
+    h.removeEventListener("pointercancel", up);
+    srcTr.classList.remove("dragging");
+    clearMarks();
+    if(!target) return;
+    var data = loadClientData(current);
+    var src = findGroup(data, fromG), dst = findGroup(data, target.g);
+    if(!src || !dst) return;
+    var item = src.g.kw.splice(fromK, 1)[0];
+    if(!item) return;
+    if(target.append) dst.g.kw.push(item);
+    else dst.g.kw.splice(target.k, 0, item);
+    if(src.g.kw.length === 0) src.g.kw.push(newKw());
+    saveClientData(current, data);
+    renderCampaigns(data);
+    calc();
+  }
+  h.addEventListener("pointermove", move);
+  h.addEventListener("pointerup", up);
+  h.addEventListener("pointercancel", up);
+});
+
+document.getElementById("addCampBtn").addEventListener("click", function(){
+  var data = loadClientData(current);
+  data.campanhas.push(newCampaign("Campanha " + (data.campanhas.length + 1)));
+  saveClientData(current, data);
+  refreshAll(data);
+});
+
+/* ---------- Palavras-chave negativas ---------- */
+var MATCH_LABEL = {amplo:"Correspondência ampla", frase:"Correspondência de frase", exata:"Correspondência exata"};
+
+function scopeOpts(data){
+  var o = [{v:"all", l:"Toda a conta"}];
+  data.campanhas.forEach(function(c){
+    var cn = c.nome || "Campanha sem nome";
+    o.push({v:"c:" + c.id, l:"Campanha: " + cn});
+    c.grupos.forEach(function(g){
+      o.push({v:"g:" + g.id, l:"↳ Grupo: " + (g.nome || "sem nome") + " (" + cn + ")"});
+    });
+  });
+  return o;
+}
+function optionsHtml(opts, val){
+  return opts.map(function(o){
+    return '<option value="'+esc(o.v)+'"'+(o.v === val ? " selected" : "")+'>'+esc(o.l)+'</option>';
+  }).join("");
+}
+function fillSelect(sel, opts, val){
+  var ok = opts.some(function(o){ return o.v === val; });
+  sel.innerHTML = optionsHtml(opts, ok ? val : opts[0].v);
+}
+function fmtNeg(n){
+  return n.m === "exata" ? "[" + n.t + "]" : (n.m === "frase" ? '"' + n.t + '"' : n.t);
+}
+function parseNeg(line, def, scope){
+  var t = line.trim();
+  if(!t) return null;
+  var m = def;
+  if(/^\[.*\]$/.test(t)){ m = "exata"; t = t.slice(1, -1).trim(); }
+  else if(/^".*"$/.test(t)){ m = "frase"; t = t.slice(1, -1).trim(); }
+  return t ? {t:t, m:m, s:scope} : null;
+}
+
+function renderNeg(data){
+  var opts = scopeOpts(data);
+  var addSel = document.getElementById("negScope");
+  var filSel = document.getElementById("negFilter");
+  fillSelect(addSel, opts, addSel.value);
+  fillSelect(filSel, [{v:"*", l:"Mostrar: todas"}].concat(opts.map(function(o){ return {v:o.v, l:"Mostrar: " + o.l}; })), filSel.value || "*");
+  var filtro = filSel.value;
+  var matchOpts = [{v:"amplo", l:MATCH_LABEL.amplo},{v:"frase", l:MATCH_LABEL.frase},{v:"exata", l:MATCH_LABEL.exata}];
+  var html = "", shown = 0;
+  data.neg.forEach(function(n, i){
+    if(filtro !== "*" && n.s !== filtro) return;
+    shown++;
+    html += '<tr>'+
+      '<td style="color:var(--text4)">'+shown+'</td>'+
+      '<td><span class="neg-term">'+esc(n.t)+'</span></td>'+
+      '<td><select data-nm="'+i+'">'+optionsHtml(matchOpts, n.m)+'</select></td>'+
+      '<td><select data-ns="'+i+'">'+optionsHtml(opts, n.s)+'</select></td>'+
+      '<td style="text-align:center"><button class="del-btn" data-ndel="'+i+'" title="Remover">×</button></td>'+
+    '</tr>';
+  });
+  if(!shown) html = '<tr><td colspan="5" class="neg-empty">Nenhuma palavra-chave negativa'+(filtro === "*" ? " ainda" : " neste filtro")+'.</td></tr>';
+  document.getElementById("negBody").innerHTML = html;
+  document.getElementById("negCount").textContent = shown + " de " + data.neg.length + " exibida(s)";
+  document.getElementById("negTabCount").textContent = data.neg.length;
+}
+
+document.getElementById("negAddBtn").addEventListener("click", function(){
+  var inp = document.getElementById("negInput");
+  var def = document.getElementById("negMatch").value;
+  var scope = document.getElementById("negScope").value;
+  var data = loadClientData(current);
+  var seen = {};
+  data.neg.forEach(function(n){ seen[n.t.toLowerCase() + "|" + n.m + "|" + n.s] = true; });
+  var added = 0;
+  inp.value.split(/\r?\n/).forEach(function(line){
+    var n = parseNeg(line, def, scope);
+    if(!n) return;
+    var key = n.t.toLowerCase() + "|" + n.m + "|" + n.s;
+    if(seen[key]) return;
+    seen[key] = true;
+    data.neg.push(n);
+    added++;
+  });
+  if(added){ saveClientData(current, data); inp.value = ""; }
+  renderNeg(data);
+});
+
+document.getElementById("negFilter").addEventListener("change", function(){
+  renderNeg(loadClientData(current));
+});
+
+document.getElementById("negBody").addEventListener("change", function(e){
+  var t = e.target, data = loadClientData(current);
+  if(t.dataset.nm != null && data.neg[+t.dataset.nm]){ data.neg[+t.dataset.nm].m = t.value; }
+  else if(t.dataset.ns != null && data.neg[+t.dataset.ns]){ data.neg[+t.dataset.ns].s = t.value; }
+  else return;
+  saveClientData(current, data);
+  renderNeg(data);
+});
+
+document.getElementById("negBody").addEventListener("click", function(e){
+  var b = e.target.closest("button[data-ndel]");
+  if(!b) return;
+  var data = loadClientData(current);
+  data.neg.splice(+b.dataset.ndel, 1);
+  saveClientData(current, data);
+  renderNeg(data);
+});
+
+document.getElementById("negCopyBtn").addEventListener("click", function(){
+  var btn = this;
+  var data = loadClientData(current);
+  var filtro = document.getElementById("negFilter").value;
+  var txt = data.neg.filter(function(n){ return filtro === "*" || n.s === filtro; }).map(fmtNeg).join("\n");
+  if(!txt) return;
+  function done(){
+    var old = btn.textContent;
+    btn.textContent = "✓ Copiado";
+    setTimeout(function(){ btn.textContent = old; }, 1500);
+  }
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); done(); }catch(err){}
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done, fallback);
+  } else { fallback(); }
+});
+
+/* ---------- Abas ---------- */
+Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(btn){
+  btn.addEventListener("click", function(){
+    Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(b){ b.classList.toggle("active", b === btn); });
+    document.getElementById("tab-plan").style.display = btn.dataset.tab === "plan" ? "" : "none";
+    document.getElementById("tab-neg").style.display = btn.dataset.tab === "neg" ? "" : "none";
+  });
+});
+
+/* ---------- Clientes ---------- */
 function loadClient(name){
   current = name;
-  var data = loadClientData(name) || {kw:[{n:"",v:0,min:0,max:0,c:0}], taxa:20, ticket:0};
-  renderKwTable(data);
+  var data = loadClientData(name);
+  if(!data){ data = blankData(); saveClientData(name, data); }
+  renderCampaigns(data);
+  renderNeg(data);
   document.getElementById("taxaFech").value = data.taxa || 20;
   document.getElementById("ticket").value = data.ticket || 0;
   calc();
@@ -333,7 +731,7 @@ document.getElementById("newClientBtn").addEventListener("click", function(){
   if(!name || clientList.indexOf(name) !== -1) return;
   clientList.push(name);
   saveClientList(clientList);
-  saveClientData(name, {kw:[{n:"",v:0,min:0,max:0,c:0}], taxa:20, ticket:0});
+  saveClientData(name, blankData());
   renderClientSel();
   loadClient(name);
 });
@@ -346,14 +744,6 @@ document.getElementById("delClientBtn").addEventListener("click", function(){
   saveClientList(clientList);
   renderClientSel();
   loadClient(clientList[0]);
-});
-
-document.getElementById("addRowBtn").addEventListener("click", function(){
-  var data = loadClientData(current);
-  data.kw.push({n:"",v:0,min:0,max:0,c:0});
-  saveClientData(current, data);
-  renderKwTable(data);
-  calc();
 });
 
 document.getElementById("exportBtn").addEventListener("click", function(){
